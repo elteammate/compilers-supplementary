@@ -32,6 +32,12 @@ fun eval (c@[s, w], stmt) {
       [s <- [x, value], w]
   | Write (e) ->
       [s, writeWorld(evalExpr(s, e), w)]
+  | While(cond, body) ->
+      if evalExpr(s, cond) then
+        let c = eval(c, body) in eval(c, stmt)
+      else
+        c
+      fi
   esac
 }
 

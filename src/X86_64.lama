@@ -386,6 +386,9 @@ fun compile (env, code) {
           else
             [env, code <+ Mov(s, env.loc(x))]
           fi
+      | JMP(l) -> [env, code <+ Jmp(l)]
+      | LABEL(l) -> [env, code <+ Label(l)]
+      | CJMP(c, l) -> [env, code <+ CJmp(c, l)]
       | inst -> failure("\n\n\nInstruction not supported: "
                         ++ string(inst) ++ "\n\n\n")
       esac
